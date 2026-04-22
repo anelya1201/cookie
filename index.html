@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Swirlzy – Freshly Crafted Treats</title>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --yellow: #F5B731;
+    --green: #1E5C4A;
+    --orange: #E8853D;
+    --blue: #A8C8E8;
+    --cream: #F0EDE6;
+    --dark: #1a1a1a;
+    --white: #ffffff;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Nunito', sans-serif;
+    background: var(--cream);
+    color: var(--dark);
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 48px;
+    background: var(--cream);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: 'Fredoka One', cursive;
+    font-size: 1.5rem;
+    color: var(--dark);
+  }
+  .logo-icon {
+    width: 42px; height: 42px;
+    background: var(--yellow);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.2rem;
+  }
+  .nav-links {
+    display: flex; gap: 36px;
+    list-style: none;
+  }
+  .nav-links a {
+    text-decoration: none;
+    color: var(--dark);
+    font-weight: 700;
+    font-size: 0.95rem;
+    transition: color .2s;
+  }
+  .nav-links a:hover { color: var(--green); }
+  .cart-btn {
+    background: var(--green);
+    color: var(--white);
+    border: none;
+    border-radius: 50px;
+    padding: 12px 24px;
+    font-family: 'Fredoka One', cursive;
+    font-size: 1rem;
+    cursor: pointer;
+    position: relative;
+    letter-spacing: 1px;
+    transition: transform .2s;
+  }
+  .cart-btn:hover { transform: scale(1.05); }
+  .cart-badge {
+    position: absolute;
+    top: -6px; right: -6px;
+    background: var(--yellow);
+    color: var(--dark);
+    font-size: 0.7rem;
+    font-weight: 800;
+    width: 20px; height: 20px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+  }
+
+  /* HERO */
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 1fr 320px;
+    grid-template-rows: auto auto;
+    gap: 16px;
+    padding: 0 48px 24px;
+  }
+  .hero-main {
+    background: var(--yellow);
+    border-radius: 24px;
+    padding: 48px;
+    position: relative;
+    overflow: hidden;
+    min-height: 420px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    grid-row: 1 / 2;
+  }
+  .hero-title {
+    font-family: 'Fredoka One', cursive;
+    font-size: 7rem;
+    color: var(--white);
+    line-height: 0.88;
+    letter-spacing: -2px;
+    text-shadow: 4px 4px 0 rgba(0,0,0,0.08);
+    position: relative;
+    z-index: 2;
+  }
+  .hero-cookie-img {
+    position: absolute;
+    right: 80px; top: 20px;
+    width: 320px;
+    filter: drop-shadow(0 20px 30px rgba(0,0,0,0.2));
+    animation: float 3s ease-in-out infinite;
+  }
+  @keyframes float {
+    0%,100% { transform: translateY(0); }
+    50% { transform: translateY(-12px); }
+  }
+  .price-badge {
+    position: absolute;
+    right: 280px; top: 160px;
+    background: var(--green);
+    color: var(--white);
+    border-radius: 50%;
+    width: 90px; height: 90px;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    z-index: 3;
+  }
+  @keyframes pulse {
+    0%,100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+  }
+  .price-badge span { font-size: 0.6rem; font-weight: 800; letter-spacing: 1px; }
+  .price-badge strong { font-family: 'Fredoka One', cursive; font-size: 1.6rem; }
+  .hero-meta {
+    display: flex; align-items: center; gap: 24px;
+    color: var(--dark);
+    font-weight: 700;
+    font-size: 0.85rem;
+    margin-top: 12px;
+    position: relative; z-index: 2;
+  }
+  .hero-rating { font-size: 1.2rem; font-weight: 800; }
+  .hero-sub { font-size: 0.85rem; color: rgba(0,0,0,0.5); }
+  .hero-tagline {
+    position: absolute;
+    left: 48px; bottom: 80px;
+    color: rgba(0,0,0,0.4);
+    font-size: 0.85rem;
+    font-weight: 600;
+    z-index: 2;
+  }
+
+  /* RIGHT PANELS */
+  .side-panels {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    grid-row: 1 / 2;
+  }
+  .panel-school {
+    background: var(--blue);
+    border-radius: 20px;
+    padding: 24px;
+    flex: 1;
+    position: relative;
+    overflow: hidden;
+  }
+  .panel-school h2 {
+    font-family: 'Fredoka One', cursive;
+    font-size: 2rem;
+    color: var(--dark);
+    line-height: 1;
+  }
+  .panel-school p { font-size: 0.8rem; font-weight: 600; color: rgba(0,0,0,0.5); margin-bottom: 16px; }
+  .explore-btn {
+    background: var(--dark);
+    color: var(--yellow);
+    border: none; border-radius: 50px;
+    padding: 10px 20px;
+    font-family: 'Fredoka One', cursive;
+    font-size: 0.9rem;
+    cursor: pointer;
+    letter-spacing: 1px;
+    transition: transform .2s;
+  }
+  .explore-btn:hover { transform: scale(1.05); }
+  .chef-emoji {
+    position: absolute;
+    right: 16px; bottom: 0;
+    font-size: 4rem;
+    line-height: 1;
+  }
+  .panel-everyday {
+    background: var(--orange);
+    border-radius: 20px;
+    padding: 24px;
+    flex: 1;
+    position: relative;
+    overflow: hidden;
+  }
+  .panel-everyday h2 {
+    font-family: 'Fredoka One', cursive;
+    font-size: 2.2rem;
+    color: var(--dark);
+    line-height: 1;
+  }
+  .panel-everyday p { font-size: 0.8rem; font-weight: 600; color: rgba(0,0,0,0.5); margin-top: 8px; }
+  .tart-emoji {
+    font-size: 3.5rem;
+    display: block;
+    margin: 8px 0;
+  }
+  .everyday-price {
+    position: absolute; top: 20px; right: 20px;
+    background: var(--green);
+    color: white;
+    font-family: 'Fredoka One', cursive;
+    font-size: 1.2rem;
+    width: 52px; height: 52px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+  }
+
+  /* TOP 5 PICKS */
+  .picks-section {
+    background: var(--white);
+    border-radius: 24px;
+    margin: 0 48px 24px;
+    padding: 32px 40px;
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 24px;
+    align-items: start;
+  }
+  .picks-title {
+    font-family: 'Fredoka One', cursive;
+    font-size: 3rem;
+    line-height: 1;
+    color: var(--dark);
+  }
+  .pick-item {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 14px 0;
+    border-bottom: 1px solid rgba(0,0,0,0.06);
+    transition: background .2s;
+  }
+  .pick-item:last-child { border-bottom: none; }
+  .pick-icon {
+    width: 52px; height: 52px;
+    border-radius: 50%;
+    background: var(--blue);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.5rem;
+    flex-shrink: 0;
+  }
+  .pick-info { flex: 1; }
+  .pick-name { font-weight: 800; font-size: 0.95rem; }
+  .pick-desc { font-size: 0.8rem; color: rgba(0,0,0,0.45); }
+  .pick-price { font-weight: 800; font-size: 0.95rem; white-space: nowrap; }
+  .pick-price span { display: block; font-size: 0.7rem; font-weight: 600; color: rgba(0,0,0,0.4); }
+  .add-btn {
+    width: 34px; height: 34px;
+    background: var(--green);
+    border: none; border-radius: 50%;
+    color: white; font-size: 1.3rem;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: transform .2s, background .2s;
+    flex-shrink: 0;
+  }
+  .add-btn:hover { transform: scale(1.15); background: #14402f; }
+
+  /* CATEGORIES */
+  .categories {
+    padding: 0 48px 24px;
+  }
+  .section-label {
+    font-family: 'Fredoka One', cursive;
+    font-size: 2.2rem;
+    margin-bottom: 20px;
+    color: var(--dark);
+  }
+  .cat-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+  }
+  .cat-card {
+    border-radius: 20px;
+    padding: 28px 24px;
+    cursor: pointer;
+    transition: transform .2s, box-shadow .2s;
+    position: relative;
+    overflow: hidden;
+  }
+  .cat-card:hover { transform: translateY(-6px); box-shadow: 0 16px 40px rgba(0,0,0,0.12); }
+  .cat-card:nth-child(1) { background: var(--yellow); }
+  .cat-card:nth-child(2) { background: #d4e8b0; }
+  .cat-card:nth-child(3) { background: #f5c4c4; }
+  .cat-card:nth-child(4) { background: var(--blue); }
+  .cat-emoji { font-size: 3rem; display: block; margin-bottom: 12px; }
+  .cat-name { font-family: 'Fredoka One', cursive; font-size: 1.3rem; }
+  .cat-count { font-size: 0.8rem; font-weight: 700; color: rgba(0,0,0,0.45); }
+
+  /* ABOUT / CTA STRIP */
+  .about-strip {
+    background: var(--green);
+    margin: 0 48px 24px;
+    border-radius: 24px;
+    padding: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 32px;
+    color: white;
+  }
+  .about-strip h2 {
+    font-family: 'Fredoka One', cursive;
+    font-size: 3rem;
+    line-height: 1.1;
+    max-width: 400px;
+  }
+  .about-strip p {
+    max-width: 340px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    opacity: 0.75;
+    line-height: 1.6;
+  }
+  .cta-btn {
+    background: var(--yellow);
+    color: var(--dark);
+    border: none; border-radius: 50px;
+    padding: 16px 36px;
+    font-family: 'Fredoka One', cursive;
+    font-size: 1.1rem;
+    cursor: pointer;
+    white-space: nowrap;
+    letter-spacing: 1px;
+    transition: transform .2s;
+  }
+  .cta-btn:hover { transform: scale(1.05); }
+
+  /* TESTIMONIALS */
+  .testimonials {
+    padding: 0 48px 24px;
+  }
+  .test-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+  .test-card {
+    background: white;
+    border-radius: 20px;
+    padding: 28px;
+  }
+  .test-stars { font-size: 1.1rem; margin-bottom: 12px; }
+  .test-text { font-size: 0.9rem; line-height: 1.6; color: rgba(0,0,0,0.65); font-weight: 600; margin-bottom: 16px; }
+  .test-author { font-weight: 800; font-size: 0.9rem; }
+  .test-role { font-size: 0.75rem; color: rgba(0,0,0,0.4); font-weight: 600; }
+
+  /* NEWSLETTER */
+  .newsletter {
+    background: var(--orange);
+    margin: 0 48px 24px;
+    border-radius: 24px;
+    padding: 48px;
+    text-align: center;
+  }
+  .newsletter h2 {
+    font-family: 'Fredoka One', cursive;
+    font-size: 2.5rem;
+    margin-bottom: 8px;
+  }
+  .newsletter p { font-size: 0.95rem; font-weight: 600; opacity: 0.7; margin-bottom: 24px; }
+  .newsletter-form {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    max-width: 440px;
+    margin: 0 auto;
+  }
+  .newsletter-form input {
+    flex: 1;
+    padding: 14px 20px;
+    border: none;
+    border-radius: 50px;
+    font-family: 'Nunito', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 700;
+    outline: none;
+  }
+  .newsletter-form button {
+    background: var(--green);
+    color: white;
+    border: none; border-radius: 50px;
+    padding: 14px 28px;
+    font-family: 'Fredoka One', cursive;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: transform .2s;
+    white-space: nowrap;
+  }
+  .newsletter-form button:hover { transform: scale(1.05); }
+
+  /* FOOTER */
+  footer {
+    background: var(--dark);
+    color: white;
+    padding: 40px 48px 24px;
+    border-radius: 24px 24px 0 0;
+    margin: 0 48px;
+  }
+  .footer-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding-bottom: 24px;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    gap: 40px;
+  }
+  .footer-brand p {
+    font-size: 0.85rem;
+    opacity: 0.5;
+    margin-top: 8px;
+    max-width: 200px;
+    font-weight: 600;
+    line-height: 1.5;
+  }
+  .footer-links h4 {
+    font-family: 'Fredoka One', cursive;
+    font-size: 1rem;
+    margin-bottom: 12px;
+    color: var(--yellow);
+  }
+  .footer-links ul { list-style: none; }
+  .footer-links li { font-size: 0.85rem; font-weight: 600; opacity: 0.5; margin-bottom: 8px; cursor: pointer; transition: opacity .2s; }
+  .footer-links li:hover { opacity: 1; }
+  .footer-bottom {
+    padding-top: 20px;
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: 0.8rem; opacity: 0.35; font-weight: 600;
+  }
+
+  /* Scroll reveal */
+  .reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity .6s, transform .6s;
+  }
+  .reveal.visible { opacity: 1; transform: none; }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="logo">
+    <div class="logo-icon">🍪</div>
+    SWIRLZY
+  </div>
+  <ul class="nav-links">
+    <li><a href="#">Life & News</a></li>
+    <li><a href="#">About</a></li>
+    <li><a href="#">Store</a></li>
+    <li><a href="#">Recipes</a></li>
+  </ul>
+  <button class="cart-btn">CART <span class="cart-badge">3</span></button>
+</nav>
+
+<!-- HERO -->
+<div class="hero-grid">
+  <div class="hero-main">
+    <div class="hero-tagline">Freshly crafted treats,<br>made just for you</div>
+    <div class="hero-title">SWEEE<br>EET!</div>
+    <div class="hero-meta">
+      <div>
+        <span class="hero-rating">( 4.8 )</span><br>
+        <span class="hero-sub">since 1985</span>
+      </div>
+      <div style="display:flex;gap:8px;">
+        <div style="width:34px;height:34px;border-radius:50%;background:rgba(255,255,255,0.4);display:flex;align-items:center;justify-content:center;font-size:1.1rem;">🍪</div>
+        <div style="width:34px;height:34px;border-radius:50%;background:rgba(255,255,255,0.4);display:flex;align-items:center;justify-content:center;font-size:1.1rem;">🧁</div>
+        <div style="width:34px;height:34px;border-radius:50%;background:rgba(255,255,255,0.4);display:flex;align-items:center;justify-content:center;font-size:1.1rem;">🍫</div>
+      </div>
+    </div>
+    <!-- Floating cookie -->
+    <div style="position:absolute;right:60px;top:20px;font-size:11rem;line-height:1;filter:drop-shadow(0 20px 30px rgba(0,0,0,0.15));">🍪</div>
+    <!-- Price badge -->
+    <div class="price-badge">
+      <span>FROM</span>
+      <strong>$12</strong>
+    </div>
+  </div>
+
+  <div class="side-panels">
+    <div class="panel-school">
+      <h2>SCHOOL</h2>
+      <p>Learn to bake deliciously</p>
+      <button class="explore-btn">EXPLORE 📝</button>
+      <div class="chef-emoji">👨‍🍳</div>
+    </div>
+    <div class="panel-everyday">
+      <h2>EVERY<br>DAY</h2>
+      <span class="tart-emoji">🥧</span>
+      <p>Freshly baked, delivered daily<br>right to your door!</p>
+      <div class="everyday-price">$10</div>
+    </div>
+  </div>
+</div>
+
+<!-- TOP 5 PICKS -->
+<div class="picks-section reveal">
+  <div class="picks-title">TOP-5<br>PICKS</div>
+  <div>
+    <div class="pick-item">
+      <div class="pick-icon">🍞</div>
+      <div class="pick-info">
+        <div class="pick-name">Honey Bun</div>
+        <div class="pick-desc">Fluffy bun with sweet honey glaze</div>
+      </div>
+      <div class="pick-price">$4.99 <span>each</span></div>
+      <button class="add-btn">+</button>
+    </div>
+    <div class="pick-item">
+      <div class="pick-icon" style="background:#d4e8b0;">🍈</div>
+      <div class="pick-info">
+        <div class="pick-name">Melon Buns</div>
+        <div class="pick-desc">Light bun with smooth melon filling</div>
+      </div>
+      <div class="pick-price">$5.50 <span>each</span></div>
+      <button class="add-btn">+</button>
+    </div>
+    <div class="pick-item">
+      <div class="pick-icon" style="background:#f5c4c4;">🍩</div>
+      <div class="pick-info">
+        <div class="pick-name">Strawberry Donut</div>
+        <div class="pick-desc">Classic glazed donut with strawberry cream</div>
+      </div>
+      <div class="pick-price">$3.99 <span>each</span></div>
+      <button class="add-btn">+</button>
+    </div>
+    <div class="pick-item">
+      <div class="pick-icon" style="background:var(--yellow);">🥐</div>
+      <div class="pick-info">
+        <div class="pick-name">Butter Croissant</div>
+        <div class="pick-desc">Flaky, buttery, baked fresh every morning</div>
+      </div>
+      <div class="pick-price">$4.25 <span>each</span></div>
+      <button class="add-btn">+</button>
+    </div>
+    <div class="pick-item">
+      <div class="pick-icon" style="background:var(--blue);">🍫</div>
+      <div class="pick-info">
+        <div class="pick-name">Choco Fudge Bar</div>
+        <div class="pick-desc">Rich double-chocolate brownie bar</div>
+      </div>
+      <div class="pick-price">$6.00 <span>each</span></div>
+      <button class="add-btn">+</button>
+    </div>
+  </div>
+</div>
+
+<!-- CATEGORIES -->
+<div class="categories reveal">
+  <div class="section-label">Shop by Category</div>
+  <div class="cat-grid">
+    <div class="cat-card">
+      <span class="cat-emoji">🍪</span>
+      <div class="cat-name">Cookies</div>
+      <div class="cat-count">24 items</div>
+    </div>
+    <div class="cat-card">
+      <span class="cat-emoji">🧁</span>
+      <div class="cat-name">Cupcakes</div>
+      <div class="cat-count">18 items</div>
+    </div>
+    <div class="cat-card">
+      <span class="cat-emoji">🥐</span>
+      <div class="cat-name">Pastries</div>
+      <div class="cat-count">31 items</div>
+    </div>
+    <div class="cat-card">
+      <span class="cat-emoji">🎂</span>
+      <div class="cat-name">Cakes</div>
+      <div class="cat-count">12 items</div>
+    </div>
+  </div>
+</div>
+
+<!-- ABOUT STRIP -->
+<div class="about-strip reveal">
+  <h2>Baked with love since 1985</h2>
+  <p>Every treat that leaves our kitchen is made from scratch using real ingredients — no shortcuts, no preservatives. Just honest, delicious baking the way it should be.</p>
+  <button class="cta-btn">OUR STORY →</button>
+</div>
+
+<!-- TESTIMONIALS -->
+<div class="testimonials reveal">
+  <div class="section-label">What people say 💬</div>
+  <div class="test-grid">
+    <div class="test-card">
+      <div class="test-stars">⭐⭐⭐⭐⭐</div>
+      <div class="test-text">"The honey buns are absolutely incredible. I order them every Sunday morning and my whole family is obsessed!"</div>
+      <div class="test-author">Sarah M.</div>
+      <div class="test-role">Regular customer since 2019</div>
+    </div>
+    <div class="test-card">
+      <div class="test-stars">⭐⭐⭐⭐⭐</div>
+      <div class="test-text">"Best bakery in the city, hands down. The croissants are perfectly flaky and the staff is always so friendly."</div>
+      <div class="test-author">James K.</div>
+      <div class="test-role">Food blogger</div>
+    </div>
+    <div class="test-card">
+      <div class="test-stars">⭐⭐⭐⭐⭐</div>
+      <div class="test-text">"Ordered a birthday cake and everyone at the party couldn't stop talking about how good it was. Will 100% be back!"</div>
+      <div class="test-author">Priya D.</div>
+      <div class="test-role">Event planner</div>
+    </div>
+  </div>
+</div>
+
+<!-- NEWSLETTER -->
+<div class="newsletter reveal">
+  <h2>Get sweet deals 🍯</h2>
+  <p>Subscribe for weekly specials, new recipes, and exclusive discounts</p>
+  <div class="newsletter-form">
+    <input type="email" placeholder="your@email.com">
+    <button>SUBSCRIBE</button>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <div class="logo" style="color:white;">
+        <div class="logo-icon">🍪</div>
+        SWIRLZY
+      </div>
+      <p>Freshly crafted treats, made just for you since 1985.</p>
+    </div>
+    <div class="footer-links">
+      <h4>Shop</h4>
+      <ul>
+        <li>Cookies</li>
+        <li>Cupcakes</li>
+        <li>Pastries</li>
+        <li>Cakes</li>
+      </ul>
+    </div>
+    <div class="footer-links">
+      <h4>Company</h4>
+      <ul>
+        <li>About Us</li>
+        <li>Baking School</li>
+        <li>Life & News</li>
+        <li>Careers</li>
+      </ul>
+    </div>
+    <div class="footer-links">
+      <h4>Help</h4>
+      <ul>
+        <li>Delivery Info</li>
+        <li>Returns</li>
+        <li>FAQ</li>
+        <li>Contact</li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 Swirlzy. All rights reserved.</span>
+    <span>Made with 🍪 and love</span>
+  </div>
+</footer>
+
+<script>
+  // Cart add interaction
+  document.querySelectorAll('.add-btn').forEach(btn => {
+    btn.addEventListener('click', function() {
+      this.textContent = '✓';
+      this.style.background = '#F5B731';
+      this.style.color = '#1a1a1a';
+      setTimeout(() => {
+        this.textContent = '+';
+        this.style.background = '#1E5C4A';
+        this.style.color = 'white';
+      }, 1200);
+      // Update badge
+      const badge = document.querySelector('.cart-badge');
+      badge.textContent = parseInt(badge.textContent) + 1;
+    });
+  });
+
+  // Scroll reveal
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) e.target.classList.add('visible');
+    });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  // Newsletter
+  document.querySelector('.newsletter-form button').addEventListener('click', function() {
+    const input = document.querySelector('.newsletter-form input');
+    if (input.value) {
+      this.textContent = 'SUBSCRIBED ✓';
+      this.style.background = '#1a1a1a';
+      input.value = '';
+    }
+  });
+</script>
+</body>
+</html>
